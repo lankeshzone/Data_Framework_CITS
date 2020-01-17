@@ -74,12 +74,7 @@ public class ClassOne {
 		 return destination;
 	 }
 	 
-	 @BeforeMethod
-	 public void setup()
-	 {
-		
-	 }
-	 
+
 	 @Test
 	 public void TC_01_DBRecords_Compare() throws SQLException
 	 {
@@ -121,23 +116,17 @@ public class ClassOne {
 
 	            FileInputStream file2 = new FileInputStream(new File("D:\\DB_Framework\\Excel\\ExcelTwo.xlsx"));
 
-	            // Get the workbook instance for XLS file
 	            XSSFWorkbook workbook1 = new XSSFWorkbook(file1);
 	            XSSFWorkbook workbook2 = new XSSFWorkbook(file2);
 
-	            // Get first sheet from the workbook
 	            XSSFSheet sheet1 = workbook1.getSheetAt(0);
 	            XSSFSheet sheet2 = workbook2.getSheetAt(0);
 	            
-	             // Compare sheets
-
-	            // Get iterator to all the rows in current sheet1
-	            Iterator<Row> rowIterator1 = sheet1.iterator();
+	          Iterator<Row> rowIterator1 = sheet1.iterator();
 	            Iterator<Row> rowIterator2 = sheet2.iterator();
 
 	            while (rowIterator1.hasNext()) {
 	                Row row = rowIterator1.next();
-	                // For each row, iterate through all the columns
 	                Iterator<Cell> cellIterator = row.cellIterator();
 	                
 	                while (cellIterator.hasNext()) {
@@ -170,10 +159,8 @@ public class ClassOne {
 	            file1.close();
 
 	            System.out.println("-----------------------------------");
-	            // For retrive the second excel data
 	            while (rowIterator2.hasNext()) {
 	                Row row1 = rowIterator2.next();
-	                // For each row, iterate through all the columns
 	                Iterator<Cell> cellIterator1 = row1.cellIterator();
 
 	                while (cellIterator1.hasNext()) {
@@ -200,7 +187,6 @@ public class ClassOne {
 	                System.out.println("");
 	            }
 
-	             // compare two arrays
 	            for (Object value : arr1) 
 	            {
 	                if (!arr2.contains(value))
@@ -211,7 +197,6 @@ public class ClassOne {
 	            
 	            writeListToExcel(arr3);
 
-	            // closing the files
 	            file1.close();
 	            file2.close();
 
@@ -243,33 +228,25 @@ public class ClassOne {
 
             FileInputStream file2 = new FileInputStream(new File("D:\\DB_Framework\\Excel\\ExcelTwo.xlsx"));
 
-            // Get the workbook instance for XLS file
             XSSFWorkbook workbook1 = new XSSFWorkbook(file1);
             XSSFWorkbook workbook2 = new XSSFWorkbook(file2);
 
-            // Get first sheet from the workbook
             XSSFSheet sheet1 = workbook1.getSheetAt(0);
             XSSFSheet sheet2 = workbook2.getSheetAt(0);
 
-            // Compare sheets
-
-            // Get iterator to all the rows in current sheet1
             Iterator<Row> rowIterator1 = sheet1.iterator();
             Iterator<Row> rowIterator2 = sheet2.iterator();
 
             while (rowIterator1.hasNext()) {
                 Row row = rowIterator1.next();
-                // For each row, iterate through all the columns
                 Iterator<Cell> cellIterator = row.cellIterator();
 
                 while (cellIterator.hasNext()) {
 
                     Cell cell = cellIterator.next();
 
-                    // This is for read only one column from excel
-                    if (cell.getColumnIndex() == 0) {
+                   if (cell.getColumnIndex() == 0) {
                     	
-                    	// Check the cell type and format accordingly
                         switch (cell.getCellType()) 
                         {
 	                        case NUMERIC:
@@ -296,19 +273,13 @@ public class ClassOne {
             file1.close();
 
             System.out.println("-----------------------------------");
-            // For retrive the second excel data
             while (rowIterator2.hasNext()) {
                 Row row1 = rowIterator2.next();
-                // For each row, iterate through all the columns
                 Iterator<Cell> cellIterator1 = row1.cellIterator();
 
                 while (cellIterator1.hasNext()) {
 
                     Cell cell1 = cellIterator1.next();
-                    // Check the cell type and format accordingly
-
-
-                    // This is for read only one column from excel
                     if (cell1.getColumnIndex() == 0) 
                     {
                       switch (cell1.getCellType()) 
@@ -328,14 +299,11 @@ public class ClassOne {
                         }
 
                     }
-                    // this continue is for
-                    // continue;
                 }
 
                 System.out.println("");
             }
 
-             // compare two arrays
             for (Object value : arr1) {
                 if (!arr2.contains(value))
                 {
@@ -344,7 +312,6 @@ public class ClassOne {
             }
             writeListToExcel(arr3);
 
-            // closing the files
             file1.close();
             file2.close();
 
@@ -360,9 +327,7 @@ public class ClassOne {
 
 	}
 
-	    // write into new file excel
-
-    private static void writeListToExcel(ArrayList arr3) 
+   private static void writeListToExcel(ArrayList arr3) 
     {
     	
         FileOutputStream fos = null;
@@ -374,13 +339,11 @@ public class ClassOne {
             XSSFSheet spreadSheet = workBook.createSheet("email");
             XSSFRow row;
             XSSFCell cell;
-            // System.out.println("array size is :: "+minusArray.size());
             int cellnumber = 0;
             for (int i1 = 0; i1 < arr3.size(); i1++) 
             {
                 row = spreadSheet.createRow(i1);
                 cell = row.createCell(cellnumber);
-                // System.out.print(cell.getCellStyle());
                 cell.setCellValue(arr3.get(i1).toString().trim());
             }
             workBook.write(fos);
@@ -451,7 +414,6 @@ public class ClassOne {
 	    String file3="Result.csv";
 	    ArrayList al1=new ArrayList();
 	    ArrayList al2=new ArrayList();
-	    //ArrayList al3=new ArrayList();
 
 	    BufferedReader CSVFile1 = new BufferedReader(new FileReader(path+file1));
 	    String dataRow1 = CSVFile1.readLine();
@@ -513,7 +475,6 @@ public class ClassOne {
 	 {
 		 if(result.getStatus() == ITestResult.FAILURE)
 		 {
-			 //MarkupHelper is used to display the output in different colors
 			 logger.log(Status.FAIL, MarkupHelper.createLabel(result.getName() + " - Test Case Failed", ExtentColor.RED));
 			 logger.log(Status.FAIL, MarkupHelper.createLabel(result.getThrowable() + " - Test Case Failed", ExtentColor.RED));
 		 }
@@ -523,8 +484,7 @@ public class ClassOne {
 	 	 } 
 		 else if(result.getStatus() == ITestResult.SUCCESS)
 		 {
-			 logger.log(Status.PASS, "Test Passed");
-			 //logger.log(Status.PASS, MarkupHelper.createLabel(result.getName()+" Test Case PASSED", ExtentColor.GREEN));
+			 logger.log(Status.PASS, MarkupHelper.createLabel(result.getName()+" Test Case PASSED", ExtentColor.GREEN));
 		 }
 	 }
 	 
